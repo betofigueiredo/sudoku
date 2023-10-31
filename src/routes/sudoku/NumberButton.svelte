@@ -2,9 +2,9 @@
   export let item: string;
   export let idx: number;
 
-  const row = 1; // TODO
-  const column = 1; // TODO
-  const block = 1; // TODO
+  const row = Math.floor(idx / 9) + 1;
+  const column = (idx % 9) + 1;
+  const block = (Math.floor(idx / 3) % 3) + Math.floor((row - 1) / 3) * 3 + 1;
 
   function getBorder() {
     let border = "w-11 h-11 border-l";
