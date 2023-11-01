@@ -1,6 +1,10 @@
 <script lang="ts">
+  import type { Location } from "./types";
+
   export let item: string;
   export let idx: number;
+  export let location: Location;
+  export let updateLocation: ({ row, column, block, idx }: Location) => void;
 
   const row = Math.floor(idx / 9) + 1;
   const column = (idx % 9) + 1;
@@ -23,8 +27,25 @@
     }
     return border;
   }
+
+  function getBackground() {
+    const isLocationSelected =
+      row === location.row || column === location.column || block === location.block;
+    const isItemSelected =
+      row === location.row && column === location.column && block === location.block;
+    const isSameSelectedValue = item === location.value;
+    let background = "";
+    if (isLocationSelected) background += " bg-gray-100";
+    if (isItemSelected) background += " bg-gray-400";
+    if (isSameSelectedValue) background += " bg-gray-400";
+    return background;
+  }
+
+  function onClick() {
+    updateLocation({ row, column, block, idx, value: item });
+  }
 </script>
 
-<button class={getBorder()}>
-  {item}
+<button class={`${getBorder()}${getBackground()}`} on:click={onClick}>
+  {item !== "." ? item : ""}
 </button>
