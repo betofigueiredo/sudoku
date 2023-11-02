@@ -1,17 +1,24 @@
 <script lang="ts">
-  import type { Location } from "./types";
+  import store, { updateLocation } from "./store";
+  import type { Location, PuzzleItem, Settings } from "./types";
 
-  export let item: string;
+  let settings: Settings = {};
+  let location: Location = {};
+
+  store.subscribe((store) => {
+    settings = store.settings;
+    location = store.location;
+  });
+
+  export let item: PuzzleItem;
   export let idx: number;
-  export let location: Location;
-  export let updateLocation: ({ row, column, block, idx }: Location) => void;
 
   const row = Math.floor(idx / 9) + 1;
   const column = (idx % 9) + 1;
   const block = (Math.floor(idx / 3) % 3) + Math.floor((row - 1) / 3) * 3 + 1;
 
   function getBorder() {
-    let border = "w-11 h-11 border-l";
+    let border = " border-l";
     if ((idx + 0) % 3 === 0) border += " border-l-2 border-l-black";
     if ((idx + 1) % 9 === 0) border += " border-r-2 border-r-black";
     if (idx % 9 === 0) border += " border-l-2 border-l-black";
@@ -33,7 +40,7 @@
       row === location.row || column === location.column || block === location.block;
     const isItemSelected =
       row === location.row && column === location.column && block === location.block;
-    const isSameSelectedValue = item === location.value;
+    const isSameSelectedValue = item.value === location?.item?.value && item.value !== "";
     let background = "";
     if (isLocationSelected) background += " bg-gray-100";
     if (isItemSelected) background += " bg-gray-400";
@@ -41,11 +48,21 @@
     return background;
   }
 
-  function onClick() {
-    updateLocation({ row, column, block, idx, value: item });
+  function getColor() {
+    const isWrongNumber = item.value !== "" && item.value !== item.solution;
+    const hasError = isWrongNumber && settings.highlightErrors;
+    return hasError ? " text-red-600" : "";
   }
+
+  function onClick() {
+    updateLocation({ row, column, block, idx, item });
+  }
+
+  const border = getBorder();
+  $: background = item && location ? getBackground() : "";
+  $: color = item ? getColor() : "";
 </script>
 
-<button class={`${getBorder()}${getBackground()}`} on:click={onClick}>
-  {item !== "." ? item : ""}
+<button class={`w-14 h-14 text-3xl ${border} ${background} ${color}`} on:click={onClick}>
+  {item.value}
 </button>
