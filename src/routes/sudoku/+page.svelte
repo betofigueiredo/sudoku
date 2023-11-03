@@ -2,18 +2,20 @@
   import store, { updatePuzzle } from "./store";
   import type { Location, Puzzle } from "./types";
   import NumberButton from "./NumberButton.svelte";
+  import Settings from "./Settings.svelte";
 
   let puzzle: Puzzle = {};
   let location: Location = {};
+  let areNotesActive: boolean = false;
 
   store.subscribe((store) => {
     puzzle = store.puzzle;
     location = store.location;
+    areNotesActive = store.areNotesActive;
   });
 
   let undo = []; // TODO
   let time = []; // TODO
-  let areNotesActive = false;
 
   function isNumber(char: string): boolean {
     return /^[0-9]+$/.test(char);
@@ -30,9 +32,9 @@
       return;
     }
 
-    const newValue =
-      event.key === "Delete" || event.key === "Backspace" ? "." : event.key;
-    updatePuzzle(newValue);
+    // TODO delete notes
+    const newValue = event.key === "Delete" || event.key === "Backspace" ? "" : event.key;
+    updatePuzzle(newValue, areNotesActive);
   }
 
   const puzzleKeys = Object.keys(puzzle).map(Number);
@@ -41,7 +43,7 @@
 <svelte:window on:keydown={keydown} />
 
 <svelte:head>
-  <title>About</title>
+  <title>Sudoku</title>
   <meta name="description" content="About this app" />
 </svelte:head>
 
@@ -50,5 +52,8 @@
     {#each puzzleKeys as key}
       <NumberButton item={puzzle[key]} idx={key} />
     {/each}
+  </div>
+  <div class="grid grid-cols-9">
+    <Settings />
   </div>
 </div>

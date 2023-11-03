@@ -2,7 +2,7 @@ export type PuzzleItem = {
   initialValue: string;
   value: string;
   solution: string;
-  notes: { [k: string]: string };
+  notes: { [k: string]: boolean };
 };
 
 export type Puzzle = {

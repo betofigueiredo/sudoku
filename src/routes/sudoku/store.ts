@@ -44,26 +44,31 @@ const store = writable({
   puzzle,
   settings,
   location,
+  areNotesActive: false,
 });
 
 export function updateLocation(newLocation: Location) {
-  store.update((store) => ({
-    ...store,
-    location: newLocation,
-  }));
+  store.update((store) => ({ ...store, location: newLocation }));
 }
 
-export function updatePuzzle(value: string) {
+export function updatePuzzle(value: string, isNote: boolean = false) {
   store.update((store) => {
     const idx = store.location?.idx || 0;
+    const updatedItem = isNote
+      ? { ...store.puzzle[idx], notes: { ...store.puzzle[idx].notes, [value]: true } }
+      : { ...store.puzzle[idx], notes: {}, value };
     return {
       ...store,
       puzzle: {
         ...store.puzzle,
-        [idx]: { ...store.puzzle[idx], value },
+        [idx]: updatedItem,
       },
     };
   });
+}
+
+export function updateAreNotesActive(value: boolean) {
+  store.update((store) => ({ ...store, areNotesActive: value }));
 }
 
 export default store;
