@@ -66,7 +66,7 @@
 </script>
 
 <button
-  class={`relative w-14 h-14 text-3xl ${border} ${background} ${color}`}
+  class={`relative w-14 h-14 font-light text-4xl ${border} ${background} ${color}`}
   on:click={onClick}
 >
   {#if item.value}

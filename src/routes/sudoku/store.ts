@@ -2,14 +2,15 @@ import { writable } from "svelte/store";
 import type { Puzzle, Settings, Location } from "./types";
 
 const initialData =
-  "2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3";
+  "051002804409831520000049100108396405006100080003284910600005000000760200704000000";
 const solutionData =
-  "284375196739816254651942378476128539312594687598637412143769825965283741827451963";
+  "351672894469831527287549163128396475946157382573284916692415738815763249734928651";
 
 function setPuzzleData(initialPuzzle: string, solution: string) {
   const hash: Puzzle = {};
   for (let idx = 0; idx < initialPuzzle.length; idx++) {
-    const initialValue = initialPuzzle[idx] !== "." ? initialPuzzle[idx] : "";
+    const hasEmptyValue = initialPuzzle[idx] === "." || initialPuzzle[idx] === "0";
+    const initialValue = !hasEmptyValue ? initialPuzzle[idx] : "";
     hash[idx] = {
       initialValue,
       value: initialValue,
@@ -51,14 +52,18 @@ export function updateLocation(newLocation: Location) {
   store.update((store) => ({ ...store, location: newLocation }));
 }
 
-export function updatePuzzle(value: string, isNote: boolean = false) {
+export function updatePuzzle(value: string, areNotesActive: boolean = false) {
   store.update((store) => {
     const idx = store.location?.idx || 0;
-    const updatedItem = isNote
+    const updatedItem = areNotesActive
       ? { ...store.puzzle[idx], notes: { ...store.puzzle[idx].notes, [value]: true } }
       : { ...store.puzzle[idx], notes: {}, value };
     return {
       ...store,
+      location: {
+        ...store.location,
+        item: updatedItem,
+      },
       puzzle: {
         ...store.puzzle,
         [idx]: updatedItem,
