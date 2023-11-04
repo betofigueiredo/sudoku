@@ -1,6 +1,7 @@
 <script lang="ts">
   import store, { updateLocation } from "./store";
   import type { Location, PuzzleItem, Settings } from "./types";
+  import Note from "./Note.svelte";
 
   let settings: Settings = {};
   let location: Location = {};
@@ -73,57 +74,7 @@
     {item.value}
   {:else}
     {#each Object.keys(item?.notes) as note}
-      <span class={`note note-${note}`}>{note}</span>
+      <Note {note} />
     {/each}
   {/if}
 </button>
-
-<style>
-  :root {
-    --left-align: 7px;
-    --center-align: 24px;
-    --right-align: 7px;
-  }
-  .note {
-    position: absolute;
-    font-size: 12px;
-    line-height: normal;
-    color: #717b7a;
-  }
-  .note-1 {
-    top: 4px;
-    left: var(--left-align);
-  }
-  .note-2 {
-    top: 4px;
-    left: var(--center-align);
-  }
-  .note-3 {
-    top: 4px;
-    right: var(--right-align);
-  }
-  .note-4 {
-    top: 20px;
-    left: var(--left-align);
-  }
-  .note-5 {
-    top: 20px;
-    left: var(--center-align);
-  }
-  .note-6 {
-    top: 20px;
-    right: var(--right-align);
-  }
-  .note-7 {
-    top: 36px;
-    left: var(--left-align);
-  }
-  .note-8 {
-    top: 36px;
-    left: var(--center-align);
-  }
-  .note-9 {
-    top: 36px;
-    right: var(--right-align);
-  }
-</style>
