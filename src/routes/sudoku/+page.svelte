@@ -44,11 +44,11 @@
   }
 
   function updateValues(eventKey: string, item: PuzzleItem) {
-    // TODO delete notes
-    const isLocked = item?.initialValue !== "" || item?.solution === item?.value;
+    const isLocked = item?.initialValue !== "";
     if (isLocked) return;
-    const newValue = eventKey === "Delete" || eventKey === "Backspace" ? "" : eventKey;
-    updatePuzzle(newValue, areNotesActive);
+    const toDelete = eventKey === "Delete" || eventKey === "Backspace";
+    const newValue = eventKey;
+    updatePuzzle(newValue, toDelete, areNotesActive);
   }
 
   function keydown(event: KeyboardEvent) {

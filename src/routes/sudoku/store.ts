@@ -52,22 +52,37 @@ export function updateLocation(newLocation: Location) {
   store.update((store) => ({ ...store, location: newLocation }));
 }
 
-export function updatePuzzle(value: string, areNotesActive: boolean = false) {
+export function updatePuzzle(
+  value: string,
+  toDelete: boolean,
+  areNotesActive: boolean = false,
+) {
+  if (toDelete) {
+    store.update((store) => {
+      const idx = store.location?.idx || 0;
+      const updatedItem = { ...store.puzzle[idx], notes: {}, value: "" };
+      return {
+        ...store,
+        location: { ...store.location, item: updatedItem },
+        puzzle: { ...store.puzzle, [idx]: updatedItem },
+      };
+    });
+    return;
+  }
   store.update((store) => {
     const idx = store.location?.idx || 0;
+    const currentValue = store.puzzle[idx].value;
+    const isSameValue = currentValue === value;
+    const newValue = isSameValue ? "" : value;
+    const isSameNote = store.puzzle[idx].notes[value];
+    const newNote = !isSameNote;
     const updatedItem = areNotesActive
-      ? { ...store.puzzle[idx], notes: { ...store.puzzle[idx].notes, [value]: true } }
-      : { ...store.puzzle[idx], notes: {}, value };
+      ? { ...store.puzzle[idx], notes: { ...store.puzzle[idx].notes, [value]: newNote } }
+      : { ...store.puzzle[idx], notes: {}, value: newValue };
     return {
       ...store,
-      location: {
-        ...store.location,
-        item: updatedItem,
-      },
-      puzzle: {
-        ...store.puzzle,
-        [idx]: updatedItem,
-      },
+      location: { ...store.location, item: updatedItem },
+      puzzle: { ...store.puzzle, [idx]: updatedItem },
     };
   });
 }

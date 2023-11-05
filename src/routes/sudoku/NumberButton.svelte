@@ -63,6 +63,8 @@
   const border = getBorder();
   $: background = item && location ? getBackground() : "";
   $: color = item ? getColor() : "";
+
+  $: notes = Object.keys(item?.notes).filter((key) => item?.notes[key] === true);
 </script>
 
 <button
@@ -72,7 +74,7 @@
   {#if item.value}
     {item.value}
   {:else}
-    {#each Object.keys(item?.notes) as note}
+    {#each notes as note}
       <Note {note} />
     {/each}
   {/if}
