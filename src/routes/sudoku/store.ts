@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import type { Puzzle, Settings, Location } from "./types";
 
 const initialData =
-  "051002804409831520000049100108396405006100080003284910600005000000760200704000000";
+  "351002804409831520000049100108396405006100080003284910600005000000760200704000000";
 const solutionData =
   "351672894469831527287549163128396475946157382573284916692415738815763249734928651";
 
@@ -34,11 +34,11 @@ const settings: Settings = {
 };
 
 const location: Location = {
-  row: -1,
-  column: -1,
-  block: -1,
-  idx: -1,
-  item: undefined,
+  row: 1,
+  column: 1,
+  block: 1,
+  idx: 0,
+  item: puzzle[0],
 };
 
 const store = writable({
