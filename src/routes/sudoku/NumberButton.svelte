@@ -1,6 +1,7 @@
 <script lang="ts">
   import store, { updateLocation } from "./store";
   import type { Location, PuzzleItem, Settings } from "./types";
+  import { calcRowColumnBlock } from "./helpers";
   import Note from "./Note.svelte";
 
   let settings: Settings = {};
@@ -14,9 +15,7 @@
   export let item: PuzzleItem;
   export let idx: number;
 
-  const row = Math.floor(idx / 9) + 1;
-  const column = (idx % 9) + 1;
-  const block = (Math.floor(idx / 3) % 3) + Math.floor((row - 1) / 3) * 3 + 1;
+  const { row, column, block } = calcRowColumnBlock(idx);
 
   function getBorder() {
     let border = " border-l border-gray-300";
@@ -67,7 +66,7 @@
 </script>
 
 <button
-  class={`relative w-14 h-14 font-light text-4xl ${border} ${background} ${color}`}
+  class={`relative w-14 h-14 outline-0 font-light text-4xl ${border} ${background} ${color}`}
   on:click={onClick}
 >
   {#if item.value}

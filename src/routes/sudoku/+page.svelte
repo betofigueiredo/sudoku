@@ -1,6 +1,7 @@
 <script lang="ts">
-  import store, { updatePuzzle } from "./store";
-  import type { Location, Puzzle } from "./types";
+  import store, { updatePuzzle, updateLocation } from "./store";
+  import type { Location, Puzzle, PuzzleItem } from "./types";
+  import { calcRowColumnBlock } from "./helpers";
   import NumberButton from "./NumberButton.svelte";
   import Settings from "./Settings.svelte";
 
@@ -21,20 +22,47 @@
     return /^[0-9]+$/.test(char);
   }
 
+  function moveWithArrows(eventKey: string) {
+    const locationIdx = location?.idx || 0;
+    let newIdx = locationIdx;
+    switch (eventKey) {
+      case "ArrowUp":
+        newIdx = locationIdx - 9 < 0 ? locationIdx : locationIdx - 9;
+        break;
+      case "ArrowDown":
+        newIdx = locationIdx + 9 > 80 ? locationIdx : locationIdx + 9;
+        break;
+      case "ArrowRight":
+        newIdx = locationIdx + 1 > 80 ? locationIdx : locationIdx + 1;
+        break;
+      case "ArrowLeft":
+        newIdx = locationIdx - 1 < 0 ? locationIdx : locationIdx - 1;
+      default:
+    }
+    const { row, column, block } = calcRowColumnBlock(newIdx);
+    updateLocation({ row, column, block, idx: newIdx, item: puzzle[newIdx] });
+  }
+
+  function updateValues(eventKey: string, item: PuzzleItem) {
+    // TODO delete notes
+    const isLocked = item?.initialValue !== "" || item?.solution === item?.value;
+    if (isLocked) return;
+    const newValue = eventKey === "Delete" || eventKey === "Backspace" ? "" : eventKey;
+    updatePuzzle(newValue, areNotesActive);
+  }
+
   function keydown(event: KeyboardEvent) {
     const item = puzzle[location?.idx || 0];
-    const isValidKey =
-      isNumber(event.key) || event.key === "Delete" || event.key === "Backspace";
-    const isLocked = item?.initialValue !== "" || item?.solution === item?.value;
+    const arrowKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+    const validKeys = ["Delete", "Backspace", ...arrowKeys];
+    const isValidKey = isNumber(event.key) || validKeys.includes(event.key);
     const noLocationSelected = location.idx === -1;
 
-    if (!isValidKey || noLocationSelected || isLocked) {
-      return;
-    }
+    if (!isValidKey || noLocationSelected) return;
 
-    // TODO delete notes
-    const newValue = event.key === "Delete" || event.key === "Backspace" ? "" : event.key;
-    updatePuzzle(newValue, areNotesActive);
+    return arrowKeys.includes(event.key)
+      ? moveWithArrows(event.key)
+      : updateValues(event.key, item);
   }
 
   const puzzleKeys = Object.keys(puzzle).map(Number);

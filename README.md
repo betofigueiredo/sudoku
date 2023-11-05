@@ -1,6 +1,6 @@
 ### TODO
 
-- Moving using keyboard
+- Delete notes on delete/backspace
 - Delete notes when number is added to row/column/block
 - Time
 - Error limit
