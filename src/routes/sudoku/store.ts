@@ -58,6 +58,22 @@ function deleteValuesAndNotes() {
   });
 }
 
+function clearNotesOnSameLocation(value: string) {
+  store.update((store) => {
+    const idx = store.selectedItem?.idx || 0;
+    for (let i = 0; i < puzzle.length; i++) {
+      const isSameLocation =
+        puzzle[i].row === store.puzzle[idx].row ||
+        puzzle[i].column === store.puzzle[idx].column ||
+        puzzle[i].block === store.puzzle[idx].block;
+      if (puzzle[i].notes[value] && isSameLocation) {
+        store.puzzle[i].notes[value] = false;
+      }
+    }
+    return store;
+  });
+}
+
 function updateValues(value: string) {
   store.update((store) => {
     const idx = store.selectedItem?.idx || 0;
@@ -69,6 +85,7 @@ function updateValues(value: string) {
     store.selectedItem = store.puzzle[idx];
     return store;
   });
+  clearNotesOnSameLocation(value);
 }
 
 function updateNotes(value: string) {
