@@ -1,27 +1,27 @@
 <script lang="ts">
   import store from "./store";
-  import type { Location, Settings } from "./types";
+  import type { PuzzleItem, Settings } from "./types";
 
   let settings: Settings = {};
-  let location: Location = {};
+  let selectedItem: PuzzleItem = { notes: {} };
 
   store.subscribe((store) => {
     settings = store.settings;
-    location = store.location;
+    selectedItem = store.selectedItem;
   });
 
   export let note: string;
 
   function getBackground() {
-    return location.item?.value === note ? " bg-[#458b81]" : "";
+    return selectedItem?.value === note ? " bg-[#458b81]" : "";
   }
 
   function getColor() {
-    return location.item?.value === note ? " text-white" : " text-[#717b7a]";
+    return selectedItem?.value === note ? " text-white" : " text-[#717b7a]";
   }
 
-  $: background = location ? getBackground() : "";
-  $: color = location ? getColor() : "";
+  $: background = selectedItem ? getBackground() : "";
+  $: color = selectedItem ? getColor() : "";
 </script>
 
 <span class={`note note-${note} ${background} ${color}`}>{note}</span>

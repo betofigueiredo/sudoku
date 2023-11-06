@@ -1,15 +1,15 @@
 <script lang="ts">
-  import store, { updateLocation } from "./store";
-  import type { Location, PuzzleItem, Settings } from "./types";
+  import store, { updateSelectedItem } from "./store";
+  import type { PuzzleItem, Settings } from "./types";
   import { calcRowColumnBlock } from "./helpers";
   import Note from "./Note.svelte";
 
   let settings: Settings = {};
-  let location: Location = {};
+  let selectedItem: PuzzleItem = { notes: {} };
 
   store.subscribe((store) => {
     settings = store.settings;
-    location = store.location;
+    selectedItem = store.selectedItem;
   });
 
   export let item: PuzzleItem;
@@ -37,10 +37,14 @@
 
   function getBackground() {
     const isLocationSelected =
-      row === location.row || column === location.column || block === location.block;
+      row === selectedItem.row ||
+      column === selectedItem.column ||
+      block === selectedItem.block;
     const isItemSelected =
-      row === location.row && column === location.column && block === location.block;
-    const isSameSelectedValue = item.value === location?.item?.value && item.value !== "";
+      row === selectedItem.row &&
+      column === selectedItem.column &&
+      block === selectedItem.block;
+    const isSameSelectedValue = item.value === selectedItem?.value && item.value !== "";
     let background = " bg-white";
     if (isLocationSelected) background = " bg-[#f3f3f4]";
     if (isSameSelectedValue) background = " bg-[#cfdddb]";
@@ -57,11 +61,11 @@
   }
 
   function onClick() {
-    updateLocation({ row, column, block, idx, item });
+    updateSelectedItem(item);
   }
 
   const border = getBorder();
-  $: background = item && location ? getBackground() : "";
+  $: background = item && selectedItem ? getBackground() : "";
   $: color = item ? getColor() : "";
 
   $: notes = Object.keys(item?.notes).filter((key) => item?.notes[key] === true);

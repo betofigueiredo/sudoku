@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
-import type { Puzzle, Settings, Location } from "./types";
+import type { Settings, PuzzleItem } from "./types";
+import { calcRowColumnBlock } from "./helpers";
 
 const initialData =
   "351002804409831520000049100108396405006100080003284910600005000000760200704000000";
@@ -7,49 +8,78 @@ const solutionData =
   "351672894469831527287549163128396475946157382573284916692415738815763249734928651";
 
 function setPuzzleData(initialPuzzle: string, solution: string) {
-  const hash: Puzzle = {};
+  const result = [];
   for (let idx = 0; idx < initialPuzzle.length; idx++) {
     const hasEmptyValue = initialPuzzle[idx] === "." || initialPuzzle[idx] === "0";
     const initialValue = !hasEmptyValue ? initialPuzzle[idx] : "";
-    hash[idx] = {
+    const { row, column, block } = calcRowColumnBlock(idx);
+    result.push({
+      idx,
+      row,
+      column,
+      block,
       initialValue,
       value: initialValue,
       solution: solution[idx],
       notes: {},
-    };
+    });
   }
-  return hash;
+  return result;
 }
 
-const puzzle: Puzzle = setPuzzleData(initialData, solutionData);
+const puzzle: PuzzleItem[] = setPuzzleData(initialData, solutionData);
 
 const settings: Settings = {
   timer: false,
+  areNotesActive: false,
   highlightErrors: true,
   highlightErrorsOnNotes: true,
   highlightEqualNumber: true,
-  highlightNotes: true, // background on notes when number is selected
+  highlightNotes: true,
   highlightRegion: true,
   errorLimit: false,
 };
 
-const location: Location = {
-  row: 1,
-  column: 1,
-  block: 1,
-  idx: 0,
-  item: puzzle[0],
-};
+const selectedItem: PuzzleItem = puzzle[0];
 
 const store = writable({
   puzzle,
   settings,
-  location,
-  areNotesActive: false,
+  selectedItem,
 });
 
-export function updateLocation(newLocation: Location) {
-  store.update((store) => ({ ...store, location: newLocation }));
+function deleteValuesAndNotes() {
+  store.update((store) => {
+    const idx = store.selectedItem?.idx || 0;
+    store.puzzle[idx].value = "";
+    store.puzzle[idx].notes = {};
+    store.selectedItem = store.puzzle[idx];
+    return store;
+  });
+}
+
+function updateValues(value: string) {
+  store.update((store) => {
+    const idx = store.selectedItem?.idx || 0;
+    const currentValue = store.puzzle[idx].value;
+    const isSameValue = currentValue === value;
+    const newValue = isSameValue ? "" : value;
+    store.puzzle[idx].value = newValue;
+    // store.puzzle[idx].notes = {};
+    store.selectedItem = store.puzzle[idx];
+    return store;
+  });
+}
+
+function updateNotes(value: string) {
+  store.update((store) => {
+    const idx = store.selectedItem?.idx || 0;
+    const isSameNote = store.puzzle[idx]?.notes[value];
+    const newNote = !isSameNote;
+    store.puzzle[idx].notes[value] = newNote;
+    store.selectedItem = store.puzzle[idx];
+    return store;
+  });
 }
 
 export function updatePuzzle(
@@ -58,37 +88,25 @@ export function updatePuzzle(
   areNotesActive: boolean = false,
 ) {
   if (toDelete) {
-    store.update((store) => {
-      const idx = store.location?.idx || 0;
-      const updatedItem = { ...store.puzzle[idx], notes: {}, value: "" };
-      return {
-        ...store,
-        location: { ...store.location, item: updatedItem },
-        puzzle: { ...store.puzzle, [idx]: updatedItem },
-      };
-    });
-    return;
+    return deleteValuesAndNotes();
   }
-  store.update((store) => {
-    const idx = store.location?.idx || 0;
-    const currentValue = store.puzzle[idx].value;
-    const isSameValue = currentValue === value;
-    const newValue = isSameValue ? "" : value;
-    const isSameNote = store.puzzle[idx].notes[value];
-    const newNote = !isSameNote;
-    const updatedItem = areNotesActive
-      ? { ...store.puzzle[idx], notes: { ...store.puzzle[idx].notes, [value]: newNote } }
-      : { ...store.puzzle[idx], notes: {}, value: newValue };
-    return {
-      ...store,
-      location: { ...store.location, item: updatedItem },
-      puzzle: { ...store.puzzle, [idx]: updatedItem },
-    };
-  });
+  if (areNotesActive) {
+    return updateNotes(value);
+  }
+  updateValues(value);
 }
 
+export function updateSelectedItem(newItem: PuzzleItem) {
+  store.update((store) => {
+    store.selectedItem = newItem;
+    return store;
+  });
+}
 export function updateAreNotesActive(value: boolean) {
-  store.update((store) => ({ ...store, areNotesActive: value }));
+  store.update((store) => {
+    store.settings.areNotesActive = value;
+    return store;
+  });
 }
 
 export default store;

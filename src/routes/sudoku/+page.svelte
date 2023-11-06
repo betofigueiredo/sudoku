@@ -1,46 +1,41 @@
 <script lang="ts">
-  import store, { updatePuzzle, updateLocation } from "./store";
-  import type { Location, Puzzle, PuzzleItem } from "./types";
-  import { calcRowColumnBlock } from "./helpers";
+  import store, { updatePuzzle, updateSelectedItem } from "./store";
+  import type { PuzzleItem } from "./types";
   import NumberButton from "./NumberButton.svelte";
   import Settings from "./Settings.svelte";
 
-  let puzzle: Puzzle = {};
-  let location: Location = {};
-  let areNotesActive: boolean = false;
+  let puzzle: PuzzleItem[] = [];
+  let selectedItem: PuzzleItem = { notes: {} };
+  let areNotesActive: boolean | undefined = false;
 
   store.subscribe((store) => {
     puzzle = store.puzzle;
-    location = store.location;
-    areNotesActive = store.areNotesActive;
+    selectedItem = store.selectedItem;
+    areNotesActive = store.settings.areNotesActive;
   });
-
-  let undo = []; // TODO
-  let time = []; // TODO
 
   function isNumber(char: string): boolean {
     return /^[0-9]+$/.test(char);
   }
 
   function moveWithArrows(eventKey: string) {
-    const locationIdx = location?.idx || 0;
-    let newIdx = locationIdx;
+    const selectedItemIdx = selectedItem?.idx || 0;
+    let newIdx = selectedItemIdx;
     switch (eventKey) {
       case "ArrowUp":
-        newIdx = locationIdx - 9 < 0 ? locationIdx : locationIdx - 9;
-        break;
-      case "ArrowDown":
-        newIdx = locationIdx + 9 > 80 ? locationIdx : locationIdx + 9;
+        newIdx = selectedItemIdx - 9 < 0 ? selectedItemIdx : selectedItemIdx - 9;
         break;
       case "ArrowRight":
-        newIdx = locationIdx + 1 > 80 ? locationIdx : locationIdx + 1;
+        newIdx = selectedItemIdx + 1 > 80 ? selectedItemIdx : selectedItemIdx + 1;
+        break;
+      case "ArrowDown":
+        newIdx = selectedItemIdx + 9 > 80 ? selectedItemIdx : selectedItemIdx + 9;
         break;
       case "ArrowLeft":
-        newIdx = locationIdx - 1 < 0 ? locationIdx : locationIdx - 1;
+        newIdx = selectedItemIdx - 1 < 0 ? selectedItemIdx : selectedItemIdx - 1;
       default:
     }
-    const { row, column, block } = calcRowColumnBlock(newIdx);
-    updateLocation({ row, column, block, idx: newIdx, item: puzzle[newIdx] });
+    updateSelectedItem(puzzle[newIdx]);
   }
 
   function updateValues(eventKey: string, item: PuzzleItem) {
@@ -52,13 +47,13 @@
   }
 
   function keydown(event: KeyboardEvent) {
-    const item = puzzle[location?.idx || 0];
+    const item = puzzle[selectedItem?.idx || 0];
     const arrowKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
     const validKeys = ["Delete", "Backspace", ...arrowKeys];
     const isValidKey = isNumber(event.key) || validKeys.includes(event.key);
-    const noLocationSelected = location.idx === -1;
+    const noSelectedItem = selectedItem.idx === -1;
 
-    if (!isValidKey || noLocationSelected) return;
+    if (!isValidKey || noSelectedItem) return;
 
     return arrowKeys.includes(event.key)
       ? moveWithArrows(event.key)
