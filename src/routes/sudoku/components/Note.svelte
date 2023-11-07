@@ -1,6 +1,6 @@
 <script lang="ts">
-  import store from "./store";
-  import type { PuzzleItem, Settings } from "./types";
+  import store from "../store";
+  import type { PuzzleItem, Settings } from "../types";
 
   let settings: Settings = {};
   let selectedItem: PuzzleItem = { notes: {} };

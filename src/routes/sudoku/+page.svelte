@@ -1,13 +1,13 @@
 <script lang="ts">
   import store, { updatePuzzle, updateSelectedItem } from "./store";
   import type { PuzzleItem } from "./types";
-  import PuzzleNumber from "./PuzzleNumber.svelte";
-  import Settings from "./Settings.svelte";
+  import PuzzleNumber from "./components/PuzzleNumber.svelte";
+  import Settings from "./components/Settings.svelte";
   import iconRotateLeft from "$lib/images/icon-rotate-left.svg";
   import iconEraser from "$lib/images/icon-eraser.svg";
   import iconPencil from "$lib/images/icon-pencil.svg";
   import iconPenRuler from "$lib/images/icon-pen-ruler.svg";
-  import NumberButton from "./NumberButton.svelte";
+  import NumberButton from "./components/NumberButton.svelte";
 
   let puzzle: PuzzleItem[] = [];
   let selectedItem: PuzzleItem = { notes: {} };
@@ -43,8 +43,8 @@
     updateSelectedItem(puzzle[newIdx]);
   }
 
-  function updateValues(eventKey: string, item: PuzzleItem) {
-    const isLocked = item?.initialValue !== "";
+  function updateValues(eventKey: string) {
+    const isLocked = selectedItem?.initialValue !== "";
     if (isLocked) return;
     const toDelete = eventKey === "Delete" || eventKey === "Backspace";
     const newValue = eventKey;
@@ -52,7 +52,6 @@
   }
 
   function keydown(event: KeyboardEvent) {
-    const item = puzzle[selectedItem?.idx || 0];
     const arrowKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
     const validKeys = ["Delete", "Backspace", ...arrowKeys];
     const isValidKey = isNumber(event.key) || validKeys.includes(event.key);
@@ -62,7 +61,7 @@
 
     return arrowKeys.includes(event.key)
       ? moveWithArrows(event.key)
-      : updateValues(event.key, item);
+      : updateValues(event.key);
   }
 
   const puzzleKeys = Object.keys(puzzle).map(Number);
@@ -118,7 +117,7 @@
         </div>
       </div>
       <div class="grid grid-cols-3 gap-3 w-[356px]">
-        {#each [1, 2, 3, 4, 5, 6, 7, 8, 9] as key}
+        {#each ["1", "2", "3", "4", "5", "6", "7", "8", "9"] as key}
           <NumberButton {key} />
         {/each}
       </div>

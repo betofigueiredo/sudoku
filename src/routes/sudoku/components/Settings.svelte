@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Toggle } from "flowbite-svelte";
-  import store, { updateAreNotesActive } from "./store";
+  import store, { updateAreNotesActive } from "../store";
 
   let areNotesActive: boolean | undefined = false;
 

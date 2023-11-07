@@ -1,7 +1,7 @@
 <script lang="ts">
-  import store, { updateSelectedItem } from "./store";
-  import type { PuzzleItem, Settings } from "./types";
-  import { calcRowColumnBlock } from "./helpers";
+  import store, { updateSelectedItem } from "../store";
+  import type { PuzzleItem, Settings } from "../types";
+  import { calcRowColumnBlock } from "../helpers";
   import Note from "./Note.svelte";
 
   let settings: Settings = {};

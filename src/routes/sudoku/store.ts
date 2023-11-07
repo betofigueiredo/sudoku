@@ -101,7 +101,7 @@ function updateNotes(value: string) {
 
 export function updatePuzzle(
   value: string,
-  toDelete: boolean,
+  toDelete: boolean = false,
   areNotesActive: boolean = false,
 ) {
   if (toDelete) {
