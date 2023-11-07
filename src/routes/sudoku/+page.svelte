@@ -3,11 +3,11 @@
   import type { PuzzleItem } from "./types";
   import PuzzleNumber from "./components/PuzzleNumber.svelte";
   import Settings from "./components/Settings.svelte";
-  import iconRotateLeft from "$lib/images/icon-rotate-left.svg";
-  import iconEraser from "$lib/images/icon-eraser.svg";
-  import iconPencil from "$lib/images/icon-pencil.svg";
   import iconPenRuler from "$lib/images/icon-pen-ruler.svg";
   import NumberButton from "./components/NumberButton.svelte";
+  import UndoButton from "./components/UndoButton.svelte";
+  import EraseButton from "./components/EraseButton.svelte";
+  import ActiveNotesButton from "./components/ActiveNotesButton.svelte";
 
   let puzzle: PuzzleItem[] = [];
   let selectedItem: PuzzleItem = { notes: {} };
@@ -83,30 +83,10 @@
     </div>
     <div>
       <div class="grid grid-cols-4 gap-4 w-[358px] tracking-wide mb-5">
-        <div class="text-center text-xs font-medium">
-          <button
-            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
-          >
-            <img src={iconRotateLeft} alt="" class="w-5 h-5" />
-          </button>
-          Desfazer
-        </div>
-        <div class="text-center text-xs font-medium">
-          <button
-            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
-          >
-            <img src={iconEraser} alt="" class="w-5 h-5" />
-          </button>
-          Apagar
-        </div>
-        <div class="text-center text-xs font-medium">
-          <button
-            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
-          >
-            <img src={iconPencil} alt="" class="w-5 h-5" />
-          </button>
-          Notas
-        </div>
+        <UndoButton />
+        <EraseButton />
+        <ActiveNotesButton />
+
         <div class="text-center text-xs font-medium">
           <button
             class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
