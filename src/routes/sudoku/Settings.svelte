@@ -2,10 +2,10 @@
   import { Toggle } from "flowbite-svelte";
   import store, { updateAreNotesActive } from "./store";
 
-  let areNotesActive: boolean = false;
+  let areNotesActive: boolean | undefined = false;
 
   store.subscribe((store) => {
-    areNotesActive = store.areNotesActive;
+    areNotesActive = store.settings.areNotesActive;
   });
 
   function onChange(event: Event) {

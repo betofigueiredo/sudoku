@@ -1,8 +1,13 @@
 <script lang="ts">
   import store, { updatePuzzle, updateSelectedItem } from "./store";
   import type { PuzzleItem } from "./types";
-  import NumberButton from "./NumberButton.svelte";
+  import PuzzleNumber from "./PuzzleNumber.svelte";
   import Settings from "./Settings.svelte";
+  import iconRotateLeft from "$lib/images/icon-rotate-left.svg";
+  import iconEraser from "$lib/images/icon-eraser.svg";
+  import iconPencil from "$lib/images/icon-pencil.svg";
+  import iconPenRuler from "$lib/images/icon-pen-ruler.svg";
+  import NumberButton from "./NumberButton.svelte";
 
   let puzzle: PuzzleItem[] = [];
   let selectedItem: PuzzleItem = { notes: {} };
@@ -71,12 +76,53 @@
 </svelte:head>
 
 <div class="container">
-  <div class="grid grid-cols-9 w-[504px]">
-    {#each puzzleKeys as key}
-      <NumberButton item={puzzle[key]} idx={key} />
-    {/each}
-  </div>
-  <div class="grid grid-cols-9">
-    <Settings />
+  <div class="grid grid-cols-2 gap-20">
+    <div class="grid grid-cols-9 w-[504px]">
+      {#each puzzleKeys as key}
+        <PuzzleNumber item={puzzle[key]} idx={key} />
+      {/each}
+    </div>
+    <div>
+      <div class="grid grid-cols-4 gap-4 w-[358px] tracking-wide mb-5">
+        <div class="text-center text-xs font-medium">
+          <button
+            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
+          >
+            <img src={iconRotateLeft} alt="" class="w-5 h-5" />
+          </button>
+          Desfazer
+        </div>
+        <div class="text-center text-xs font-medium">
+          <button
+            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
+          >
+            <img src={iconEraser} alt="" class="w-5 h-5" />
+          </button>
+          Apagar
+        </div>
+        <div class="text-center text-xs font-medium">
+          <button
+            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
+          >
+            <img src={iconPencil} alt="" class="w-5 h-5" />
+          </button>
+          Notas
+        </div>
+        <div class="text-center text-xs font-medium">
+          <button
+            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
+          >
+            <img src={iconPenRuler} alt="" class="w-5 h-5" />
+          </button>
+          Notas avançadas
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-3 w-[356px]">
+        {#each [1, 2, 3, 4, 5, 6, 7, 8, 9] as key}
+          <NumberButton {key} />
+        {/each}
+      </div>
+      <Settings />
+    </div>
   </div>
 </div>
