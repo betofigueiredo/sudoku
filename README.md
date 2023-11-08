@@ -1,6 +1,5 @@
 ### TODO
 
-- Disabled number button if all numbers are filled
 - Undo actions
 - Time
 - Error limit
