@@ -1,12 +1,11 @@
 ### TODO
 
-- Create sudoku board
 - Disabled number button if all numbers are filled
-- Advanced notes
+- Undo actions
 - Time
 - Error limit
-- Undo actions
 - Show success on the end
 - Mobile
 - Deploy static
+- Advanced notes
 - Save data to localstorage

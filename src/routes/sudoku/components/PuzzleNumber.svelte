@@ -61,7 +61,7 @@
     const isWrongNumber = item.value !== "" && item.value !== item.solution;
     const hasError = isWrongNumber && settings.highlightErrors;
     const isInitialValue = item.initialValue !== "";
-    const normalColor = isInitialValue ? " text-gray-900" : " text-blue-800";
+    const normalColor = isInitialValue ? " text-gray-900" : " text-[#25786d]";
     return hasError ? " text-red-600" : normalColor;
   }
 

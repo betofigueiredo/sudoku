@@ -9,10 +9,17 @@
 
 <div class="text-center text-xs font-medium">
   <button
-    class={`w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9] ${activeClass}`}
+    class={`relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9] ${activeClass}`}
     on:click={onClick}
   >
+    {#if isActive}
+      <div
+        class="absolute bg-[#3f9488] rounded-full pt-[2px] pb-[2px] pl-[8px] pr-[8px] top-[-9px] right-[-4px] text-white"
+      >
+        ON
+      </div>
+    {/if}
     <img src={icon} alt="" class="w-5 h-5" />
   </button>
-  {label}
+  <span class={isActive ? "text-[#3f9488]" : ""}>{label}</span>
 </div>
