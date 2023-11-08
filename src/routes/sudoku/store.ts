@@ -34,7 +34,7 @@ const settings: Settings = {
   areNotesActive: false,
   highlightErrors: true,
   highlightErrorsOnNotes: true,
-  highlightEqualNumber: true,
+  highlightEqualNumbers: true,
   highlightNotes: true,
   highlightRegion: true,
   errorLimit: false,
@@ -122,6 +122,13 @@ export function updateSelectedItem(newItem: PuzzleItem) {
 export function updateAreNotesActive(value: boolean) {
   store.update((store) => {
     store.settings.areNotesActive = value;
+    return store;
+  });
+}
+
+export function updateSettings(key: keyof Settings, value: boolean) {
+  store.update((store) => {
+    store.settings[key] = value;
     return store;
   });
 }

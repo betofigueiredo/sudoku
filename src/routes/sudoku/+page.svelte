@@ -3,11 +3,11 @@
   import type { PuzzleItem } from "./types";
   import PuzzleNumber from "./components/PuzzleNumber.svelte";
   import Settings from "./components/Settings.svelte";
-  import iconPenRuler from "$lib/images/icon-pen-ruler.svg";
   import NumberButton from "./components/NumberButton.svelte";
   import UndoButton from "./components/UndoButton.svelte";
   import EraseButton from "./components/EraseButton.svelte";
   import ActiveNotesButton from "./components/ActiveNotesButton.svelte";
+  import ActiveAdvancedNotesButton from "./components/ActiveAdvancedNotesButton.svelte";
 
   let puzzle: PuzzleItem[] = [];
   let selectedItem: PuzzleItem = { notes: {} };
@@ -75,6 +75,10 @@
 </svelte:head>
 
 <div class="container">
+  <div class="grid grid-cols-2 gap-20 mb-4">
+    <div>Difficulty: Easy Medium Hard Expert Master</div>
+    <Settings />
+  </div>
   <div class="grid grid-cols-2 gap-20">
     <div class="grid grid-cols-9 w-[504px]">
       {#each puzzleKeys as key}
@@ -86,22 +90,13 @@
         <UndoButton />
         <EraseButton />
         <ActiveNotesButton />
-
-        <div class="text-center text-xs font-medium">
-          <button
-            class="w-14 h-14 rounded-full flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto]"
-          >
-            <img src={iconPenRuler} alt="" class="w-5 h-5" />
-          </button>
-          Notas avançadas
-        </div>
+        <ActiveAdvancedNotesButton />
       </div>
       <div class="grid grid-cols-3 gap-3 w-[356px]">
         {#each ["1", "2", "3", "4", "5", "6", "7", "8", "9"] as key}
           <NumberButton {key} />
         {/each}
       </div>
-      <Settings />
     </div>
   </div>
 </div>

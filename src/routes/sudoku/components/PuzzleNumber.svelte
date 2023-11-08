@@ -45,9 +45,14 @@
       column === selectedItem.column &&
       block === selectedItem.block;
     const isSameSelectedValue = item.value === selectedItem?.value && item.value !== "";
+
     let background = " bg-white";
-    if (isLocationSelected) background = " bg-[#f3f3f4]";
-    if (isSameSelectedValue) background = " bg-[#cfdddb]";
+    if (isLocationSelected && settings.highlightRegion) {
+      background = " bg-[#f3f3f4]";
+    }
+    if (isSameSelectedValue && settings.highlightEqualNumbers) {
+      background = " bg-[#cfdddb]";
+    }
     if (isItemSelected) background = " bg-[#bfddd9]";
     return background;
   }

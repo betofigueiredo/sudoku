@@ -13,11 +13,13 @@
   export let note: string;
 
   function getBackground() {
-    return selectedItem?.value === note ? " bg-[#458b81]" : "";
+    return selectedItem?.value === note && settings.highlightNotes ? " bg-[#458b81]" : "";
   }
 
   function getColor() {
-    return selectedItem?.value === note ? " text-white" : " text-[#717b7a]";
+    return selectedItem?.value === note && settings.highlightNotes
+      ? " text-white"
+      : " text-[#717b7a]";
   }
 
   $: background = selectedItem ? getBackground() : "";

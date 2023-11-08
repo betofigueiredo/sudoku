@@ -16,7 +16,7 @@ export type Settings = {
   areNotesActive?: boolean;
   highlightErrors?: boolean;
   highlightErrorsOnNotes?: boolean;
-  highlightEqualNumber?: boolean;
+  highlightEqualNumbers?: boolean;
   highlightNotes?: boolean;
   highlightRegion?: boolean;
   errorLimit?: boolean;
