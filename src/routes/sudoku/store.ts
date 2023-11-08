@@ -3,18 +3,17 @@ import type { Settings, PuzzleItem } from "./types";
 import { calcRowColumnBlock } from "./helpers";
 import Sudoku from "$lib/sudoku/sudoku";
 
-const sudoku = new Sudoku();
-const board = sudoku.generate("hard", true);
-
-const initialData = board;
-const solutionData = sudoku.solve(board, false);
-
 // const initialData =
 //   "351002804409831520000049100108396405006100080003284910600005000000760200704000000";
 // const solutionData =
 //   "351672894469831527287549163128396475946157382573284916692415738815763249734928651";
 
-function setPuzzleData(initialPuzzle: string, solution: string) {
+function setPuzzleData(): PuzzleItem[] {
+  const sudoku = new Sudoku();
+  sudoku.initialize();
+  const board = sudoku.generate("medium", true);
+  const initialPuzzle = board;
+  const solution = sudoku.solve(board, false);
   const result = [];
   for (let idx = 0; idx < initialPuzzle.length; idx++) {
     const hasEmptyValue = initialPuzzle[idx] === "." || initialPuzzle[idx] === "0";
@@ -34,7 +33,7 @@ function setPuzzleData(initialPuzzle: string, solution: string) {
   return result;
 }
 
-const puzzle: PuzzleItem[] = setPuzzleData(initialData, solutionData);
+const puzzle: PuzzleItem[] = [];
 
 const settings: Settings = {
   timer: false,
@@ -47,9 +46,10 @@ const settings: Settings = {
   errorLimit: false,
 };
 
-const selectedItem: PuzzleItem = puzzle[0];
+const selectedItem: PuzzleItem = { notes: {} };
 
 const store = writable({
+  isCreatingPuzzle: true,
   puzzle,
   settings,
   selectedItem,
@@ -136,6 +136,16 @@ export function updateAreNotesActive(value: boolean) {
 export function updateSettings(key: keyof Settings, value: boolean) {
   store.update((store) => {
     store.settings[key] = value;
+    return store;
+  });
+}
+
+export function initPuzzle() {
+  const puzzle = setPuzzleData();
+  store.update((store) => {
+    store.puzzle = puzzle;
+    store.selectedItem = puzzle[0];
+    store.isCreatingPuzzle = false;
     return store;
   });
 }

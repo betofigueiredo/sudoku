@@ -1,5 +1,6 @@
 <script lang="ts">
-  import store, { updatePuzzle, updateSelectedItem } from "./store";
+  import { browser } from "$app/environment";
+  import store, { updatePuzzle, updateSelectedItem, initPuzzle } from "./store";
   import type { PuzzleItem } from "./types";
   import PuzzleNumber from "./components/PuzzleNumber.svelte";
   import Settings from "./components/Settings.svelte";
@@ -9,11 +10,13 @@
   import ActiveNotesButton from "./components/ActiveNotesButton.svelte";
   import ActiveAdvancedNotesButton from "./components/ActiveAdvancedNotesButton.svelte";
 
+  let isCreatingPuzzle: boolean = true;
   let puzzle: PuzzleItem[] = [];
   let selectedItem: PuzzleItem = { notes: {} };
   let areNotesActive: boolean | undefined = false;
 
   store.subscribe((store) => {
+    isCreatingPuzzle = store.isCreatingPuzzle;
     puzzle = store.puzzle;
     selectedItem = store.selectedItem;
     areNotesActive = store.settings.areNotesActive;
@@ -64,6 +67,10 @@
       : updateValues(event.key);
   }
 
+  if (browser) {
+    initPuzzle();
+  }
+
   const puzzleKeys = Object.keys(puzzle).map(Number);
 </script>
 
@@ -81,9 +88,11 @@
   </div>
   <div class="grid grid-cols-2 gap-20">
     <div class="grid grid-cols-9 w-[504px]">
-      {#each puzzleKeys as key}
-        <PuzzleNumber item={puzzle[key]} idx={key} />
-      {/each}
+      {#if !isCreatingPuzzle}
+        {#each puzzleKeys as key}
+          <PuzzleNumber item={puzzle[key]} idx={key} />
+        {/each}
+      {/if}
     </div>
     <div>
       <div class="grid grid-cols-4 gap-4 w-[358px] tracking-wide mb-5">

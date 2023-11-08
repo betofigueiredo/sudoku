@@ -50,8 +50,6 @@ class Sudoku {
   }
 
   generate(difficulty, unique) {
-    this.initialize();
-
     if (typeof difficulty === "string" || typeof difficulty === "undefined") {
       difficulty = this.DIFFICULTY[difficulty] || this.DIFFICULTY.easy;
     }
@@ -116,7 +114,6 @@ class Sudoku {
       }
     }
 
-    // Give up and try a new puzzle
     return this.generate(difficulty);
   }
 
@@ -425,62 +422,6 @@ class Sudoku {
     }
 
     return units;
-  }
-
-  board_string_to_grid(board_string) {
-    var rows = [];
-    var cur_row = [];
-    for (var i in board_string) {
-      cur_row.push(board_string[i]);
-      if (i % 9 == 8) {
-        rows.push(cur_row);
-        cur_row = [];
-      }
-    }
-    return rows;
-  }
-
-  board_grid_to_string(board_grid) {
-    var board_string = "";
-    for (var r = 0; r < 9; ++r) {
-      for (var c = 0; c < 9; ++c) {
-        board_string += board_grid[r][c];
-      }
-    }
-    return board_string;
-  }
-
-  print_board(board) {
-    var report = this.validate_board(board);
-    if (report !== true) {
-      throw report;
-    }
-
-    var V_PADDING = " ";
-    var H_PADDING = "\n";
-
-    var V_BOX_PADDING = "  ";
-    var H_BOX_PADDING = "\n";
-
-    var display_string = "";
-
-    for (var i in board) {
-      var square = board[i];
-
-      display_string += square + V_PADDING;
-
-      if (i % 3 === 2) {
-        display_string += V_BOX_PADDING;
-      }
-
-      if (i % 9 === 8) {
-        display_string += H_PADDING;
-      }
-
-      if (i % 27 === 26) {
-        display_string += H_BOX_PADDING;
-      }
-    }
   }
 
   validate_board(board) {
