@@ -1,11 +1,18 @@
 import { writable } from "svelte/store";
 import type { Settings, PuzzleItem } from "./types";
 import { calcRowColumnBlock } from "./helpers";
+import Sudoku from "$lib/sudoku/sudoku";
 
-const initialData =
-  "351002804409831520000049100108396405006100080003284910600005000000760200704000000";
-const solutionData =
-  "351672894469831527287549163128396475946157382573284916692415738815763249734928651";
+const sudoku = new Sudoku();
+const board = sudoku.generate("hard", true);
+
+const initialData = board;
+const solutionData = sudoku.solve(board, false);
+
+// const initialData =
+//   "351002804409831520000049100108396405006100080003284910600005000000760200704000000";
+// const solutionData =
+//   "351672894469831527287549163128396475946157382573284916692415738815763249734928651";
 
 function setPuzzleData(initialPuzzle: string, solution: string) {
   const result = [];

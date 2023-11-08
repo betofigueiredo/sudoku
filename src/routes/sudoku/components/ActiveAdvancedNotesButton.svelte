@@ -10,13 +10,8 @@
   });
 
   function onClick(event: Event) {
-    updateAreNotesActive(!areNotesActive);
+    // updateAreNotesActive(!areNotesActive);
   }
 </script>
 
-<ControlButton
-  icon={iconPenRuler}
-  label="Notas avançadas"
-  {onClick}
-  isActive={areNotesActive}
-/>
+<ControlButton icon={iconPenRuler} label="Notas avançadas" {onClick} />

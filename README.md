@@ -1,8 +1,7 @@
 ### TODO
 
-- Settings working
-- Disabled number button if all numbers are filled
 - Create sudoku board
+- Disabled number button if all numbers are filled
 - Advanced notes
 - Time
 - Error limit
