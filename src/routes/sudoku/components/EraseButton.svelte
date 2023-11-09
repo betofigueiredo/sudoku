@@ -17,4 +17,4 @@
   }
 </script>
 
-<ControlButton icon={iconEraser} label="Apagar" {onClick} />
+<ControlButton icon={iconEraser} label="Erase" {onClick} />

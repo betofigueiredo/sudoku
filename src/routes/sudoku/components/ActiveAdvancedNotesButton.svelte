@@ -14,4 +14,4 @@
   }
 </script>
 
-<ControlButton icon={iconPenRuler} label="Notas avançadas" {onClick} />
+<ControlButton icon={iconPenRuler} label="Advanced notes" {onClick} />

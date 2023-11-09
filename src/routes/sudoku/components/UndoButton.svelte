@@ -8,4 +8,4 @@
   }
 </script>
 
-<ControlButton icon={iconRotateLeft} label="Desfazer" {onClick} />
+<ControlButton icon={iconRotateLeft} label="Undo" {onClick} />
