@@ -21,7 +21,13 @@
 <div class="w-[358px] text-right">
   <button on:click={() => (defaultModal = true)}>More settings</button>
 
-  <Modal title="Settings" bind:open={defaultModal} autoclose placement="top-center">
+  <Modal
+    title="Settings"
+    size="xs"
+    bind:open={defaultModal}
+    autoclose
+    placement="top-center"
+  >
     <Toggle
       color="teal"
       data-key="highlightErrors"
