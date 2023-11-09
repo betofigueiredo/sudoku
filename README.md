@@ -1,9 +1,8 @@
 ### TODO
 
-- Undo actions
-- Time
-- Error limit
 - Show success on the end
+- Error limit
+- Time
 - Mobile
 - Deploy static
 - Advanced notes

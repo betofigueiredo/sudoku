@@ -72,7 +72,6 @@
   const border = getBorder();
   $: background = item && selectedItem ? getBackground() : "";
   $: color = item ? getColor() : "";
-
   $: notes = Object.keys(item?.notes).filter((key) => item?.notes[key] === true);
 </script>
 

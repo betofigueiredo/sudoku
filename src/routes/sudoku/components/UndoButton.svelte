@@ -1,8 +1,11 @@
 <script lang="ts">
-  import ControlButton from "./ControlButton.svelte";
+  import { undoLastAction } from "../store";
   import iconRotateLeft from "$lib/images/icon-rotate-left.svg";
+  import ControlButton from "./ControlButton.svelte";
 
-  function onClick(event: Event) {}
+  function onClick() {
+    undoLastAction();
+  }
 </script>
 
 <ControlButton icon={iconRotateLeft} label="Desfazer" {onClick} />

@@ -33,8 +33,6 @@ function setPuzzleData(): PuzzleItem[] {
   return result;
 }
 
-const puzzle: PuzzleItem[] = [];
-
 const settings: Settings = {
   timer: false,
   areNotesActive: false,
@@ -46,13 +44,16 @@ const settings: Settings = {
   errorLimit: false,
 };
 
+const puzzle: PuzzleItem[] = [];
 const selectedItem: PuzzleItem = { notes: {} };
+const undoItems: PuzzleItem[] = [];
 
 const store = writable({
   isCreatingPuzzle: true,
   puzzle,
   settings,
   selectedItem,
+  undoItems,
 });
 
 function deleteValuesAndNotes() {
@@ -87,6 +88,10 @@ function updateValues(value: string) {
     const currentValue = store.puzzle[idx].value;
     const isSameValue = currentValue === value;
     const newValue = isSameValue ? "" : value;
+    store.undoItems.push({
+      ...store.selectedItem,
+      notes: { ...store.selectedItem.notes },
+    });
     store.puzzle[idx].value = newValue;
     // store.puzzle[idx].notes = {};
     store.selectedItem = store.puzzle[idx];
@@ -100,6 +105,10 @@ function updateNotes(value: string) {
     const idx = store.selectedItem?.idx || 0;
     const isSameNote = store.puzzle[idx]?.notes[value];
     const newNote = !isSameNote;
+    store.undoItems.push({
+      ...store.selectedItem,
+      notes: { ...store.selectedItem.notes },
+    });
     store.puzzle[idx].notes[value] = newNote;
     store.selectedItem = store.puzzle[idx];
     return store;
@@ -146,6 +155,18 @@ export function initPuzzle() {
     store.puzzle = puzzle;
     store.selectedItem = puzzle[0];
     store.isCreatingPuzzle = false;
+    return store;
+  });
+}
+
+export function undoLastAction() {
+  store.update((store) => {
+    if (!store.undoItems.length) return store;
+    const lastItem = store.undoItems.pop();
+    const idx = lastItem?.idx || 0;
+    store.puzzle[idx].value = lastItem?.value;
+    store.puzzle[idx].notes = lastItem?.notes || {};
+    store.selectedItem = store.puzzle[idx];
     return store;
   });
 }
