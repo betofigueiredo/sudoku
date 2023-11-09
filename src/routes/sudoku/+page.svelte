@@ -14,12 +14,14 @@
   let puzzle: PuzzleItem[] = [];
   let selectedItem: PuzzleItem = { notes: {} };
   let areNotesActive: boolean | undefined = false;
+  let isFinished: boolean | undefined = false;
 
   store.subscribe((store) => {
     isCreatingPuzzle = store.isCreatingPuzzle;
     puzzle = store.puzzle;
     selectedItem = store.selectedItem;
     areNotesActive = store.settings.areNotesActive;
+    isFinished = store.isFinished;
   });
 
   function isNumber(char: string): boolean {
@@ -88,10 +90,17 @@
   </div>
   <div class="grid grid-cols-2 gap-20">
     <div class="grid grid-cols-9 w-[504px]">
-      {#if !isCreatingPuzzle}
+      {#if !isCreatingPuzzle && !isFinished}
         {#each puzzleKeys as key}
           <PuzzleNumber item={puzzle[key]} idx={key} />
         {/each}
+      {/if}
+      {#if isFinished}
+        <div
+          class="w-[504px] h-[504px] bg-[#cfdddb] rounded-md flex justify-center items-center"
+        >
+          <h2 class="text-2xl">Congratulations!!!</h2>
+        </div>
       {/if}
     </div>
     <div>

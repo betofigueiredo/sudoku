@@ -33,6 +33,24 @@ function setPuzzleData(): PuzzleItem[] {
   return result;
 }
 
+function checkFinish() {
+  store.update((store) => {
+    let isFinished = true;
+    for (let idx = 0; idx < store.puzzle.length; idx++) {
+      if (store.puzzle[idx].value === "") {
+        isFinished = false;
+        break;
+      }
+      if (store.puzzle[idx].value !== store.puzzle[idx].solution) {
+        isFinished = false;
+        break;
+      }
+    }
+    store.isFinished = isFinished;
+    return store;
+  });
+}
+
 const settings: Settings = {
   timer: false,
   areNotesActive: false,
@@ -47,6 +65,7 @@ const settings: Settings = {
 const puzzle: PuzzleItem[] = [];
 const selectedItem: PuzzleItem = { notes: {} };
 const undoItems: PuzzleItem[] = [];
+const isFinished: boolean = false;
 
 const store = writable({
   isCreatingPuzzle: true,
@@ -54,6 +73,7 @@ const store = writable({
   settings,
   selectedItem,
   undoItems,
+  isFinished,
 });
 
 function deleteValuesAndNotes() {
@@ -127,6 +147,7 @@ export function updatePuzzle(
     return updateNotes(value);
   }
   updateValues(value);
+  checkFinish();
 }
 
 export function updateSelectedItem(newItem: PuzzleItem) {
