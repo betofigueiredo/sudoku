@@ -3,7 +3,7 @@
   <h3>Created with <a href="https://svelte.dev/" target="_blank">Svelte</a>.</h3>
   <br />
   <figure>
-    <img src="https://github.com/betofigueiredo/sudoku/assets/7251116/62dcc4fa-e872-4ed2-9e42-6e99896fddf5" alt="Demo" />
+    <img src="https://github.com/betofigueiredo/sudoku/assets/7251116/4044910a-fd0e-47d9-8300-1f0e498b6081" alt="Demo" />
   </figure>
 </div>
 
