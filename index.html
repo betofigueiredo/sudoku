@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+		
+		<link href="./_app/immutable/assets/0.9fa6ad36.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/2.8018cd75.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.892dafb3.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.6ad3dbc2.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons.e9d3a7df.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.842d85be.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.c8906ab1.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.7f7eed88.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.0bd5946d.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.4460ea75.js"><title>Sudoku</title><!-- HEAD_svelte-q8djpc_START --><meta name="description" content="About this app"><!-- HEAD_svelte-q8djpc_END -->
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">  <div class="app svelte-1dcrz0p"><header class="svelte-cx6kfy" data-svelte-h="svelte-18s5gt3"><div class="corner svelte-cx6kfy"><a href="https://github.com/betofigueiredo/sudoku" target="_blank" rel="noopener noreferrer" class="svelte-cx6kfy"><img src="/_app/immutable/assets/github.1ea8d62e.svg" alt="GitHub" class="svelte-cx6kfy"></a></div> </header> <main class="svelte-1dcrz0p">  <div class="container"><div class="grid grid-cols-2 gap-20 mb-4"><div>Difficulty:  
+      <button type="button" class="pl-2 pr-2 text-[#3f9488]">Easy</button> <button type="button" class="pl-2 pr-2 ">Medium</button> <button type="button" class="pl-2 pr-2 ">Hard</button> <button type="button" class="pl-2 pr-2 ">Expert</button> <button type="button" class="pl-2 pr-2 ">Master</button></div> <div class="w-[358px] text-right mb-1"><div class="grid grid-cols-2"><div class="flex items-center gap-2"><div class="pt-1">00:00:00</div> <button data-svelte-h="svelte-1bt9a2j"><img src="/_app/immutable/assets/circle-play.2bc1ea8e.svg" alt="play" class="w-5 h-5" style="filter: invert(100%) sepia(0%) saturate(7449%) hue-rotate(166deg) brightness(118%) contrast(61%)"></button></div> <div><button data-svelte-h="svelte-wg0ig0">More settings</button></div></div>  </div></div> <div class="grid grid-cols-2 gap-20"><div class="grid grid-cols-9 w-[504px]"> <div class="w-[504px] h-[504px] flex justify-center items-center"><svg role="status" class="inline -mt-px animate-spin dark:text-gray-600 w-14 h-14 text-gray-300 fill-green-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"></path><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"></path></svg> </div>  </div> <div><div class="grid grid-cols-4 gap-4 w-[358px] tracking-wide mb-5"><div class="text-center text-xs font-medium"><button class="relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9]  "> <img src="/_app/immutable/assets/icon-rotate-left.73f1baf6.svg" alt="" class="w-5 h-5"></button> <span class="">Undo</span></div> <div class="text-center text-xs font-medium"><button class="relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9]  "> <img src="/_app/immutable/assets/icon-eraser.6b616ad6.svg" alt="" class="w-5 h-5"></button> <span class="">Erase</span></div> <div class="text-center text-xs font-medium"><button class="relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9]  "> <img src="/_app/immutable/assets/icon-pencil.ada846a0.svg" alt="" class="w-5 h-5"></button> <span class="">Notes</span></div> <div class="text-center text-xs font-medium"><button class="relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9]  opacity-40 cursor-default"> <img src="/_app/immutable/assets/icon-pen-ruler.b62bb08f.svg" alt="" class="w-5 h-5"></button> <span class="opacity-40 cursor-default">Advanced notes</span></div></div> <div class="grid grid-cols-3 gap-3 w-[356px]"><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >1</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >2</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >3</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >4</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >5</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >6</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >7</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >8</button><button class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40" >9</button></div></div></div></div></main> </div> 
+			
+			<script>
+				{
+					__sveltekit_xqbzzy = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: {}
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("./_app/immutable/entry/start.892dafb3.js"),
+						import("./_app/immutable/entry/app.c8906ab1.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
