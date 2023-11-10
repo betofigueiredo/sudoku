@@ -25,5 +25,7 @@
 <button
   type="button"
   on:click={createNewBoard}
-  class={`pl-2 pr-2 ${isActive ? "text-[#3f9488]" : ""}`}>{label}</button
+  class={`pl-2 pr-2 ${isActive ? "text-[#3f9488]" : ""}`}
 >
+  {label}
+</button>

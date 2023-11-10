@@ -2,6 +2,7 @@
   import { Toggle, Modal } from "flowbite-svelte";
   import store, { updateSettings } from "../store";
   import type { Settings } from "../types";
+  import Timer from "./Timer.svelte";
 
   let settings: Settings = {};
   let defaultModal = false;
@@ -18,8 +19,11 @@
   }
 </script>
 
-<div class="w-[358px] text-right">
-  <button on:click={() => (defaultModal = true)}>More settings</button>
+<div class="w-[358px] text-right mb-1">
+  <div class="grid grid-cols-2 gap-20">
+    <Timer />
+    <button on:click={() => (defaultModal = true)}>More settings</button>
+  </div>
 
   <Modal
     title="Settings"

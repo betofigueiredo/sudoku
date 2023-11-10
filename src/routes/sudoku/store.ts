@@ -48,7 +48,7 @@ function checkFinish() {
 
 const settings: Settings = {
   difficulty: "easy",
-  timer: false,
+  timer: true,
   areNotesActive: false,
   highlightErrors: true,
   highlightErrorsOnNotes: true,
