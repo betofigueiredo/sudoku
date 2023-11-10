@@ -12,6 +12,7 @@ export type PuzzleItem = {
 export type Puzzle = PuzzleItem[];
 
 export type Settings = {
+  difficulty?: string;
   timer?: boolean;
   areNotesActive?: boolean;
   highlightErrors?: boolean;

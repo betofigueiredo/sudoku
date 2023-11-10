@@ -9,6 +9,7 @@
   import EraseButton from "./components/EraseButton.svelte";
   import ActiveNotesButton from "./components/ActiveNotesButton.svelte";
   import ActiveAdvancedNotesButton from "./components/ActiveAdvancedNotesButton.svelte";
+  import NewBoardButton from "./components/NewBoardButton.svelte";
 
   let isCreatingPuzzle: boolean = true;
   let puzzle: PuzzleItem[] = [];
@@ -70,10 +71,14 @@
   }
 
   if (browser) {
-    initPuzzle();
+    initPuzzle("easy");
   }
 
   const puzzleKeys = Object.keys(puzzle).map(Number);
+
+  function createNewBoard(difficulty: string) {
+    initPuzzle(difficulty);
+  }
 </script>
 
 <svelte:window on:keydown={keydown} />
@@ -85,7 +90,14 @@
 
 <div class="container">
   <div class="grid grid-cols-2 gap-20 mb-4">
-    <div>Difficulty: Easy Medium Hard Expert Master</div>
+    <div>
+      Difficulty:&nbsp;&nbsp;
+      <NewBoardButton label="Easy" />
+      <NewBoardButton label="Medium" />
+      <NewBoardButton label="Hard" />
+      <NewBoardButton label="Expert" />
+      <NewBoardButton label="Master" />
+    </div>
     <Settings />
   </div>
   <div class="grid grid-cols-2 gap-20">
