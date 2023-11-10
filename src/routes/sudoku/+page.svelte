@@ -75,10 +75,6 @@
   }
 
   const puzzleKeys = Object.keys(puzzle).map(Number);
-
-  function createNewBoard(difficulty: string) {
-    initPuzzle(difficulty);
-  }
 </script>
 
 <svelte:window on:keydown={keydown} />
