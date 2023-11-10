@@ -32,9 +32,7 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Build
         run : npm i
-          shell: bash
         run : npm run build
-          shell: bash
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
 
