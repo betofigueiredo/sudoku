@@ -33,17 +33,13 @@ jobs:
         run: npm i
       - name: Build
         run: npm run build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: https://betofigueiredo.github.io/sudoku/
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      - name: Config name
+        run: git config user.name github-actions
+      - name: Config email
+        run: git config user.email github-actions@github.com
+      - name: Worktree
+        run: git --work-tree build add --all
+      - name: Commit
+        run: git commit -m "Automatic Build and Deploy run by GitHub Actions"
+      - name: Push
+        run: git push origin HEAD:gh-pages --force
