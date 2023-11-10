@@ -3,6 +3,26 @@ import type { Settings, PuzzleItem } from "./types";
 import { calcRowColumnBlock } from "./helpers";
 import Sudoku from "$lib/sudoku/sudoku";
 
+class Queue {
+  list: any[];
+
+  constructor() {
+    this.list = [];
+  }
+
+  enqueue(newItem: any) {
+    this.list.push(newItem);
+    this.execute();
+  }
+
+  execute() {
+    if (!this.list.length) return;
+    const fn = this.list.shift();
+    fn();
+    this.execute();
+  }
+}
+
 function setPuzzleData(difficulty: string): PuzzleItem[] {
   const sudoku = new Sudoku();
   sudoku.initialize();
