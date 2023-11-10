@@ -1,5 +1,5 @@
 <script lang="ts">
-  import store, { initPuzzle } from "../store";
+  import store, { clearPuzzle, initPuzzle } from "../store";
 
   const difficulties: { [k: string]: string } = {
     Easy: "easy",
@@ -16,7 +16,10 @@
   });
 
   function createNewBoard() {
-    initPuzzle(difficulties[label]);
+    clearPuzzle();
+    setTimeout(() => {
+      initPuzzle(difficulties[label]);
+    }, 600);
   }
 
   $: isActive = difficulty === difficulties[label];

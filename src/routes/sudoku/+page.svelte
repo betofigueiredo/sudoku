@@ -2,6 +2,7 @@
   import { browser } from "$app/environment";
   import store, { updatePuzzle, updateSelectedItem, initPuzzle } from "./store";
   import type { PuzzleItem } from "./types";
+  import { Spinner } from "flowbite-svelte";
   import PuzzleNumber from "./components/PuzzleNumber.svelte";
   import Settings from "./components/Settings.svelte";
   import NumberButton from "./components/NumberButton.svelte";
@@ -16,6 +17,7 @@
   let selectedItem: PuzzleItem = { notes: {} };
   let areNotesActive: boolean | undefined = false;
   let isFinished: boolean | undefined = false;
+  let timer: boolean | undefined = false;
 
   store.subscribe((store) => {
     isCreatingPuzzle = store.isCreatingPuzzle;
@@ -23,6 +25,7 @@
     selectedItem = store.selectedItem;
     areNotesActive = store.settings.areNotesActive;
     isFinished = store.isFinished;
+    timer = store.settings.timer;
   });
 
   function isNumber(char: string): boolean {
@@ -75,6 +78,11 @@
   }
 
   const puzzleKeys = Object.keys(puzzle).map(Number);
+
+  $: showBoard = !isCreatingPuzzle && !isFinished && timer;
+  $: showFinished = isFinished;
+  $: showLoading = isCreatingPuzzle && !isFinished;
+  $: showPaused = !isCreatingPuzzle && !isFinished && !timer;
 </script>
 
 <svelte:window on:keydown={keydown} />
@@ -98,12 +106,24 @@
   </div>
   <div class="grid grid-cols-2 gap-20">
     <div class="grid grid-cols-9 w-[504px]">
-      {#if !isCreatingPuzzle && !isFinished}
+      {#if showPaused}
+        <div
+          class="w-[504px] h-[504px] bg-[#dcdcdc] rounded-md flex justify-center items-center"
+        >
+          Paused
+        </div>
+      {/if}
+      {#if showLoading}
+        <div class="w-[504px] h-[504px] flex justify-center items-center">
+          <Spinner color="green" size="14" />
+        </div>
+      {/if}
+      {#if showBoard}
         {#each puzzleKeys as key}
           <PuzzleNumber item={puzzle[key]} idx={key} />
         {/each}
       {/if}
-      {#if isFinished}
+      {#if showFinished}
         <div
           class="w-[504px] h-[504px] bg-[#cfdddb] rounded-md flex justify-center items-center"
         >

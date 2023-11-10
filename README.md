@@ -33,9 +33,8 @@ I've wanted to study Svelte for some time now, but I didn't have any project for
 
 ## TODO list
 
-- Add timer
-- Set error limit
 - Mobile version
 - Deploy
 - Save data to localstorage
+- Set error limit
 - Advanced notes

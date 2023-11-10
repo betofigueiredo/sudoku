@@ -20,9 +20,11 @@
 </script>
 
 <div class="w-[358px] text-right mb-1">
-  <div class="grid grid-cols-2 gap-20">
+  <div class="grid grid-cols-2">
     <Timer />
-    <button on:click={() => (defaultModal = true)}>More settings</button>
+    <div>
+      <button on:click={() => (defaultModal = true)}>More settings</button>
+    </div>
   </div>
 
   <Modal

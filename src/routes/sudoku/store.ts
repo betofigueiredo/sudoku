@@ -42,6 +42,7 @@ function checkFinish() {
       }
     }
     store.isFinished = isFinished;
+    store.settings.timer = !isFinished;
     return store;
   });
 }
@@ -166,12 +167,22 @@ export function updateSettings(key: keyof Settings, value: string | boolean) {
   });
 }
 
+export function clearPuzzle() {
+  store.update((store) => {
+    store.puzzle = [];
+    store.selectedItem = { notes: {} };
+    store.isCreatingPuzzle = true;
+    return store;
+  });
+}
+
 export function initPuzzle(difficulty: string) {
   const puzzle = setPuzzleData(difficulty);
   store.update((store) => {
     store.puzzle = puzzle;
     store.selectedItem = puzzle[0];
     store.isCreatingPuzzle = false;
+    store.isFinished = false;
     store.settings.difficulty = difficulty;
     return store;
   });

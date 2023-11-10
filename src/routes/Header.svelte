@@ -25,7 +25,11 @@
   </nav>
 
   <div class="corner">
-    <a href="https://github.com/betofigueiredo/sudoku">
+    <a
+      href="https://github.com/betofigueiredo/sudoku"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <img src={github} alt="GitHub" />
     </a>
   </div>
