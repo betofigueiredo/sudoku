@@ -14,4 +14,4 @@
   }
 </script>
 
-<ControlButton icon={iconPenRuler} label="Advanced notes" {onClick} />
+<ControlButton icon={iconPenRuler} label="Advanced notes" {onClick} isDisabled />

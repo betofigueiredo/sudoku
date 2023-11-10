@@ -3,13 +3,15 @@
   export let label: string;
   export let onClick: (event: Event) => void;
   export let isActive: boolean = false;
+  export let isDisabled: boolean = false;
 
   $: activeClass = isActive ? "border-2 border-[#3f9488]" : "";
+  $: disabledClass = isDisabled ? "opacity-40 cursor-default" : "";
 </script>
 
 <div class="text-center text-xs font-medium">
   <button
-    class={`relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9] ${activeClass}`}
+    class={`relative w-14 h-14 rounded-full outline-0 flex justify-center items-center bg-[#dcdcdc] mb-2 ml-[auto] mr-[auto] hover:bg-[#cfdddb] active:bg-[#bfddd9] ${activeClass} ${disabledClass}`}
     on:click={onClick}
   >
     {#if isActive}
@@ -21,5 +23,7 @@
     {/if}
     <img src={icon} alt="" class="w-5 h-5" />
   </button>
-  <span class={isActive ? "text-[#3f9488]" : ""}>{label}</span>
+  <span class={isActive ? `text-[#3f9488] ${disabledClass}` : `${disabledClass}`}>
+    {label}
+  </span>
 </div>
