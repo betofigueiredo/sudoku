@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import github from "$lib/images/github.svg";
 </script>
 
