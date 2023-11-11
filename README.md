@@ -1,6 +1,8 @@
 <div align="center">
   <h1>Sudoku</h1>
-  <h3>Created with <a href="https://svelte.dev/" target="_blank">Svelte</a>.</h3>
+  <h3>Created with <a href="https://svelte.dev/" target="_blank" rel="noopener noreferrer">Svelte</a>.</h3>
+  Check here ⇢ <a href="https://betofigueiredo.github.io/sudoku/" target="_blank" rel="noopener noreferrer">https://betofigueiredo.github.io/sudoku/</a>
+  <br />
   <br />
   <figure>
     <img src="https://github.com/betofigueiredo/sudoku/assets/7251116/4044910a-fd0e-47d9-8300-1f0e498b6081" alt="Demo" />
@@ -34,7 +36,6 @@ I've wanted to study Svelte for some time now, but I didn't have any project for
 ## TODO list
 
 - Mobile version
-- Deploy
 - Save data to localstorage
 - Set error limit
 - Advanced notes
