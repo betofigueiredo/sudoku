@@ -93,7 +93,7 @@
 </svelte:head>
 
 <div class="container">
-  <div class="grid grid-cols-2 gap-20 mb-4">
+  <div class="grid lg:grid-cols-2 grid-cols-1 lg:gap-20 gap-8 mb-4">
     <div>
       Difficulty:&nbsp;&nbsp;
       <NewBoardButton label="Easy" />
@@ -104,17 +104,17 @@
     </div>
     <Settings />
   </div>
-  <div class="grid grid-cols-2 gap-20">
-    <div class="grid grid-cols-9 w-[504px]">
+  <div class="grid lg:grid-cols-2 grid-grid-cols-1 lg:gap-20 gap-8">
+    <div class="grid grid-cols-9 md:w-[504px] w-full">
       {#if showPaused}
         <div
-          class="w-[504px] h-[504px] bg-[#dcdcdc] rounded-md flex justify-center items-center"
+          class="lg:w-[504px] w-full h-[504px] bg-[#dcdcdc] rounded-md flex justify-center items-center"
         >
           Paused
         </div>
       {/if}
       {#if showLoading}
-        <div class="w-[504px] h-[504px] flex justify-center items-center">
+        <div class="lg:w-[504px] w-full h-[504px] flex justify-center items-center">
           <Spinner color="green" size="14" />
         </div>
       {/if}
@@ -132,13 +132,13 @@
       {/if}
     </div>
     <div>
-      <div class="grid grid-cols-4 gap-4 w-[358px] tracking-wide mb-5">
+      <div class="grid grid-cols-4 gap-4 w-full lg:w-[358px] tracking-wide lg:mb-5 mb-8">
         <UndoButton />
         <EraseButton />
         <ActiveNotesButton />
         <ActiveAdvancedNotesButton />
       </div>
-      <div class="grid grid-cols-3 gap-3 w-[356px]">
+      <div class="grid grid-cols-9 lg:grid-cols-3 lg:gap-3 gap-2 w-full lg:w-[356px]">
         {#each ["1", "2", "3", "4", "5", "6", "7", "8", "9"] as key}
           <NumberButton {key} />
         {/each}

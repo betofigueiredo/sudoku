@@ -33,7 +33,7 @@
 </script>
 
 <button
-  class="w-[110px] h-[110px] text-5xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40"
+  class="lg:w-[110px] w-full lg:h-[110px] md:h-[70px] h-[60px] lg:text-5xl text-3xl font-light flex justify-center items-center bg-[#dcdcdc] rounded-md hover:bg-[#cfdddb] active:bg-[#bfddd9] disabled:opacity-40"
   on:click={onClick}
   {disabled}
 >
